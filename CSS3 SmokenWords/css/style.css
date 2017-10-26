@@ -1,0 +1,210 @@
+@import url(https://fonts.googleapis.com/css?family=Finger+Paint);
+
+
+/*每一个字符都是独立的个体，烟雾化的时候时独立执行的动画效果；
+ * 1.主要运用CSS3 动画属性：animation 属性；
+ * @keyframes  规定动画，
+ * animation 是所有动画属性的简写属性，除了 animation-play-state 属性。
+ * animation-name   规定 @keyframes 动画的名称。
+ * animation-duration   规定动画完成一个周期所花费的秒或毫秒
+ * animation-timing-function    规定动画的速度曲线。
+ * animation-delay  置延时，规定动画何时开始。
+ * animation-iteration-count    规定动画被播放的次数。
+ * animation-direction  规定动画是否在下一周期逆向地播放。
+ * animation-play-state 规定动画是否正在运行或暂停。
+ * animation-fill-mode  规定对象动画时间之外的状态。
+ * 
+ * 注意：
+ * Internet Explorer 10、Firefox 以及 Opera 支持 animation 属性。
+   Safari 和 Chrome 支持替代的 -webkit-animation 属性。
+    注释：Internet Explorer 9 以及更早的版本不支持 animation 属性。
+    
+
+
+2.CSS3 3D Transform，之前CSS3 2D Transform只是在x-y轴平面，3D给HTML元素在x-y平面加上了z轴；
+
+translate3d(tx,ty,tz)：他定义了一个3D的位移方法，增加了z轴的偏移量
+translateZ(tz)：这个方法只在Z轴偏移，与translateX()和translateY()相似
+scale3d(sx,sy,sz)：在原有的scale方法上增加了z轴的参数
+scaleZ(sz)：同理，只放大z轴，与scaleX()和scaleY()类似
+rotate3d(rx,ry,rz)：将元素以给定参数的某一个轴方向旋转
+rotateX(angle)，rotateY(angle)和rotateZ(angle)：只按照某一个轴旋转，rotate3d(1,0,0,30deg)相当于rotateX(30deg)，什么都没做translate3d(0,0,0)。
+ * 
+ */
+
+body {
+  background: black;
+  overflow: hidden;
+  font: 5vw/100vh "Finger Paint";
+  /*vh代表视窗的高度，vm代表视窗的宽度，详情见http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/*/
+  text-align: center;
+  color: transparent;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+span {
+  display: inline-block;
+  text-shadow: 0 0 0 whitesmoke;
+  -webkit-animation: smoky 5s linear 5s infinite alternate;/*animation-iteration-count：infinite是无数次播放 ,也可是n次*/
+ /*如果 animation-direction 值是 "alternate"，则动画会在奇数次数（1、3、5 等等）正常播放，而在偶数次数（2、4、6 等等）向后播放。normal	默认值。动画应该正常播放。*/
+  /*animation-timing-function: linear;动画定时功能规定动画的速度曲线,取值linear就是线性过渡。等同于贝塞尔曲线(0.0, 0.0, 1.0, 1.0);详见 https://baike.so.com/doc/7619841-7893936.html*/
+    			animation: smoky 5s linear 5s infinite alternate;
+}
+
+span:nth-child(even) {
+  -webkit-animation-name: smoky-mirror;
+          animation-name: smoky-mirror;
+}
+
+
+/*动画的实际表现是有@keyframes(关键帧)规则实现；0%表示动画的第一时刻-100%表示动画的第一时刻 可用from/0%或to/100%*/
+@-webkit-keyframes smoky {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    -webkit-transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+            transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+
+@keyframes smoky {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    -webkit-transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+            transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes smoky-mirror {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    -webkit-transform: translate3d(18rem, -8rem, 0) rotate(-40deg) skewX(-70deg) scale(2);
+            transform: translate3d(18rem, -8rem, 0) rotate(-40deg) skewX(-70deg) scale(2);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+@keyframes smoky-mirror {
+  60% {
+    text-shadow: 0 0 40px whitesmoke;
+  }
+  to {
+    -webkit-transform: translate3d(18rem, -8rem, 0) rotate(-40deg) skewX(-70deg) scale(2);
+            transform: translate3d(18rem, -8rem, 0) rotate(-40deg) skewX(-70deg) scale(2);
+    text-shadow: 0 0 20px whitesmoke;
+    opacity: 0;
+  }
+}
+span:nth-of-type(1) {
+  -webkit-animation-delay: 3.1s;
+          animation-delay: 3.1s;
+}
+
+span:nth-of-type(2) {
+  -webkit-animation-delay: 3.2s;
+          animation-delay: 3.2s;
+}
+
+span:nth-of-type(3) {
+  -webkit-animation-delay: 3.3s;
+          animation-delay: 3.3s;
+}
+
+span:nth-of-type(4) {
+  -webkit-animation-delay: 3.4s;
+          animation-delay: 3.4s;
+}
+
+span:nth-of-type(5) {
+  -webkit-animation-delay: 3.5s;
+          animation-delay: 3.5s;
+}
+
+span:nth-of-type(6) {
+  -webkit-animation-delay: 3.6s;
+          animation-delay: 3.6s;
+}
+
+span:nth-of-type(7) {
+  -webkit-animation-delay: 3.7s;
+          animation-delay: 3.7s;
+}
+
+span:nth-of-type(8) {
+  -webkit-animation-delay: 3.8s;
+          animation-delay: 3.8s;
+}
+
+span:nth-of-type(9) {
+  -webkit-animation-delay: 3.9s;
+          animation-delay: 3.9s;
+}
+
+span:nth-of-type(10) {
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+}
+
+span:nth-of-type(11) {
+  -webkit-animation-delay: 4.1s;
+          animation-delay: 4.1s;
+}
+
+span:nth-of-type(12) {
+  -webkit-animation-delay: 4.2s;
+          animation-delay: 4.2s;
+}
+
+span:nth-of-type(13) {
+  -webkit-animation-delay: 4.3s;
+          animation-delay: 4.3s;
+}
+
+span:nth-of-type(14) {
+  -webkit-animation-delay: 4.4s;
+          animation-delay: 4.4s;
+}
+
+span:nth-of-type(15) {
+  -webkit-animation-delay: 4.5s;
+          animation-delay: 4.5s;
+}
+
+span:nth-of-type(16) {
+  -webkit-animation-delay: 4.6s;
+          animation-delay: 4.6s;
+}
+
+span:nth-of-type(17) {
+  -webkit-animation-delay: 4.7s;
+          animation-delay: 4.7s;
+}
+
+span:nth-of-type(18) {
+  -webkit-animation-delay: 4.8s;
+          animation-delay: 4.8s;
+}
+
+span:nth-of-type(19) {
+  -webkit-animation-delay: 4.9s;
+          animation-delay: 4.9s;
+}
+
+span:nth-of-type(20) {
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
+}
+
+span:nth-of-type(21) {
+  -webkit-animation-delay: 5.1s;
+          animation-delay: 5.1s;
+}
